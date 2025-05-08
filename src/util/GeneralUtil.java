@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
-import java.util.stream.IntStream;
 
 import util.exceptions.FormatException;
 
@@ -22,88 +21,66 @@ import util.exceptions.FormatException;
 public class GeneralUtil {
 	
 	/**
-	 * Compares a given value with an array of comparable elements and returns the index of the element equal to the value, or -1 if the element is not found.
-	 * 
-	 * @param <T> the type of objects and of the value.
-	 * @param value the value to be compared with the elements in the array.
-	 * @param arr the array of comparable elements with which the given value is to be compared.
-	 * @return the index or -1 if the element is not found.
-	 */
-	public static final <T> int binarySearch(T value, T[] arr) {
-		return Arrays.asList(arr).indexOf(value);
-	};
-	 
-	/**
-	 * Compares a given value with an array of comparable elements and returns the index of the element greater or equal than the value, or -1 if the element is not found.
-	 * 
-	 * @param <T> The type of the objects and the value.
-	 * @param value the value to be compared with the elements in the array.
-	 * @param arr the array of comparable elements with which the given value is to be compared.
-	 * @return the index or -1 if the element is not found.
-	 */
-	public static final <T extends Comparable<? super T>> int binarySearchGreaterOrEqualThan(T value, T[] arr) {
-		T[] copy = Arrays.copyOf(arr, arr.length);
-		sortNaturalOrReverse(arr, Comparator.reverseOrder());
-		return IntStream.range(0, arr.length)
-				.filter(i -> value.compareTo(arr[i]) >= 0)
-				.mapToObj(i -> findIndexInCopy(arr[i], copy))
-				.findFirst()
-				.orElse(-1);
-	}
-	
-	/**
-	 * Compares a given value with an array of comparable elements and returns the index of the element greater than the value, or -1 if the element is not found.
-	 * 
-	 * @param <T> The type of the objects and the value.
-	 * @param value the value to be compared with the elements in the array.
-	 * @param arr the array of comparable elements with which the given value is to be compared.
-	 * @return the index or -1 if the element is not found.
-	 */
-	public static final <T extends Comparable<? super T>> int binarySearchGreaterThan(T value, T[] arr) {
-		T[] copy = Arrays.copyOf(arr, arr.length);
-		sortNaturalOrReverse(arr, Comparator.reverseOrder());
-		return IntStream.range(0, arr.length)
-				.filter(i -> value.compareTo(arr[i]) > 0)
-				.mapToObj(i -> findIndexInCopy(arr[i], copy))
-				.findFirst()
-				.orElse(-1);
-	}
-	
-	/**
-	 * Compares a given value with an array of comparable elements and returns the index of the element less or equal than the value, or -1 if the element is not found.
-	 * 
-	 * @param <T> The type of the objects and the value.
-	 * @param value the value to be compared with the elements in the array.
-	 * @param arr the array of comparable elements with which the given value is to be compared.
-	 * @return the index or -1 if the element is not found.
-	 */
-	public static final <T extends Comparable<? super T>> int binarySearchLessOrEqualThan(T value, T[] arr) {
-		T[] copy = Arrays.copyOf(arr, arr.length);
-		sortNaturalOrReverse(arr, Comparator.naturalOrder());
-		return IntStream.range(0, arr.length)
-				.filter(i -> value.compareTo(arr[i]) <= 0)
-				.mapToObj(i -> findIndexInCopy(arr[i], copy))
-				.findFirst()
-				.orElse(-1);
-	}
-	
-	/**
-	 * Compares a given value with an array of comparable elements and returns the index of the element less than the value, or -1 if the element is not found.
-	 * 
-	 * @param <T> The type of the objects and the value.
-	 * @param value the value to be compared with the elements in the array.
-	 * @param arr the array of comparable elements with which the given value is to be compared.
-	 * @return the index or -1 if the element is not found.
-	 */
-	public static final <T extends Comparable<? super T>> int binarySearchLessThan(T value, T[] arr) {
-		T[] copy = Arrays.copyOf(arr, arr.length);
-		sortNaturalOrReverse(arr, Comparator.naturalOrder());
-		return IntStream.range(0, arr.length)
-				.filter(i -> value.compareTo(arr[i]) < 0)
-				.mapToObj(i -> findIndexInCopy(arr[i], copy))
-				.findFirst()
-				.orElse(-1);
-	}
+     * Binary search for exact match using Arrays.binarySearch.
+     */
+    public static <T extends Comparable<? super T>> int binarySearch(T[] arr, T value) {
+        int idx = Arrays.binarySearch(arr, value);
+        return idx >= 0 ? idx : -1;
+    }
+
+    /**
+     * Finds the first index i such that arr[i] >= value (lower bound).
+     */
+    public static <T extends Comparable<? super T>> int lowerBound(T[] arr, T value) {
+        int lo = 0, hi = arr.length;
+        while (lo < hi) {
+            int mid = (lo + hi) >>> 1;
+            if (arr[mid].compareTo(value) < 0) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        return lo < arr.length ? lo : -1;
+    }
+
+    /**
+     * Finds the first index i such that arr[i] > value (upper bound).
+     */
+    public static <T extends Comparable<? super T>> int upperBound(T[] arr, T value) {
+        int lo = 0, hi = arr.length;
+        while (lo < hi) {
+            int mid = (lo + hi) >>> 1;
+            if (arr[mid].compareTo(value) <= 0) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        return lo < arr.length ? lo : -1;
+    }
+
+    /** Wrapper: first index with element >= value */
+    public static <T extends Comparable<? super T>> int binarySearchGreaterOrEqualThan(T[] arr, T value) {
+        return lowerBound(arr, value);
+    }
+
+    /** Wrapper: first index with element > value */
+    public static <T extends Comparable<? super T>> int binarySearchGreaterThan(T[] arr, T value) {
+        return upperBound(arr, value);
+    }
+
+    /** Wrapper: last index with element <= value */
+    public static <T extends Comparable<? super T>> int binarySearchLessOrEqualThan(T[] arr, T value) {
+        int ub = upperBound(arr, value);
+        return ub > 0 ? ub - 1 : -1;
+    }
+
+    /** Wrapper: last index with element < value */
+    public static <T extends Comparable<? super T>> int binarySearchLessThan(T[] arr, T value) {
+        int lb = lowerBound(arr, value);
+        return lb > 0 ? lb - 1 : -1;
+    }
 
 	/**
 	 * 
@@ -209,21 +186,6 @@ public class GeneralUtil {
 		}
 		String[] words = str.split(" ");
 		return words.length;
-	}
-	
-	/**
-	 * Finds the index of a given element in an array of elements and returns it.
-	 * 
-	 * @param <T> The type of the objects and the value.
-	 * @param element the element to be found in the array.
-	 * @param copy the array of elements in which the given element is to be searched.
-	 * @return the index, -1 otherwise.
-	 */
-	private static <T> int findIndexInCopy(T element, T[] copy) {
-		return IntStream.range(0, copy.length)
-				.filter(j -> element.equals(copy[j]))
-				.findFirst()
-				.orElse(-1);
 	}
 	
 	/**

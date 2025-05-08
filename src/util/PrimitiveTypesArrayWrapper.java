@@ -6,66 +6,66 @@ public class PrimitiveTypesArrayWrapper {
 	
 	public static final Boolean[] wrap(boolean[] src) {
 		Boolean[] wrapBol = new Boolean[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		for(int i = 0; i < src.length; i++) {
+			wrapBol[i] = src[i];
 		}
 		return wrapBol;
 	}
 	
 	public static final Byte[] wrap(byte[] src) {
-		Byte[] wrapBol = new Byte[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		Byte[] wrapByte = new Byte[src.length];
+		for(int i = 0; i < src.length; i++) {
+			wrapByte[i] = src[i];
 		}
-		return wrapBol;
+		return wrapByte;
 	}
 	
 	public static final Short[] wrap(short[] src) {
-		Short[] wrapBol = new Short[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		Short[] wrapShort = new Short[src.length];
+		for(int i = 0; i < src.length; i++) {
+			wrapShort[i] = src[i];
 		}
-		return wrapBol;
+		return wrapShort;
 	}
 	
 	public static final Integer[] wrap(int[] src) {
-		Integer[] wrapBol = new Integer[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		Integer[] wrapInteger = new Integer[src.length];
+		for(int i = 0; i < src.length; i++) {
+			wrapInteger[i] = src[i];
 		}
-		return wrapBol;
+		return wrapInteger;
 	}
 	
 	public static final Long[] wrap(long[] src) {
-		Long[] wrapBol = new Long[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		Long[] wrapLong = new Long[src.length];
+		for(int i = 0; i < src.length; i++) {
+			wrapLong[i] = src[i];
 		}
-		return wrapBol;
+		return wrapLong;
 	}
 	
 	public static final Float[] wrap(float[] src) {
-		Float[] wrapBol = new Float[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		Float[] wrapFloat = new Float[src.length];
+		for(int i = 0; i < src.length; i++) {
+			wrapFloat[i] = src[i];
 		}
-		return wrapBol;
+		return wrapFloat;
 	}
 	
 	public static final Double[] wrap(double[] src) {
-		Double[] wrapBol = new Double[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		Double[] wrapDouble = new Double[src.length];
+		for(int i = 0; i < src.length; i++) {
+			wrapDouble[i] = src[i];
 		}
-		return wrapBol;
+		return wrapDouble;
 	}
 	
 	public static final Character[] wrap(char[] src) {
-		Character[] wrapBol = new Character[src.length];
-		for(int index = 0; index < src.length; index++) {
-			wrapBol[index] = src[index];
+		Character[] wrapChar = new Character[src.length];
+		for(int i = 0; i < src.length; i++) {
+			wrapChar[i] = src[i];
 		}
-		return wrapBol;
+		return wrapChar;
 	}
 	
 }

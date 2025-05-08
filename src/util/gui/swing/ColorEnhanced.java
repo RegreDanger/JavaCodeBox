@@ -187,7 +187,7 @@ public class ColorEnhanced extends Color {
 		boolean[] toCheck = new boolean[] { (r < 0 || r > 255), (g < 0 || g > 255), (b < 0 || b > 255) };
 		if (GeneralUtil.casesToEqual(toCheck)) {
 			String badComponentString = "";
-			int badComponent = GeneralUtil.binarySearch(Boolean.TRUE, new Boolean[] { toCheck[0], toCheck[1], toCheck[2] });
+			int badComponent = GeneralUtil.binarySearch(new Boolean[] { toCheck[0], toCheck[1], toCheck[2] }, Boolean.TRUE);
 			if (badComponent == 0) {
 				badComponentString = "Red - r";
 			}
