@@ -1,41 +1,67 @@
 package util.datalib;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import util.datastructures.BidirectionalMap;
+
 public interface Codificable {
+	String SEPARATOR = "|";
 	
-	String[] code = { "-1-", "-2-", "-3-", "-4-", "-5-", "-6-", "-7-", "-8-", "-9-", "-11-", "-12-",
-			"-13-", "-14-", "-15-", "-16-", "-17-", "-18-", "-19-", "-21-", "-22-", "-23-", "-24-", "-25-", "-26-",
-			"-27-", "-28-", "-29-", "-30-", "-31-" };
-	String[] letters = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "ñ", "o",
-				"p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", ":" };
-	String[] decode = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "11", "12", "13", "14", "15", "16",
-			"17", "18", "19", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" };
-	String[] numbers = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
-	String[] decodeN = { "=", ".=.", ".===", "=.==", ".=.=.", "..===.", "..===..=", "..=..==.",
-			".=..=...=", "..=...=..=." };
-	String[] codeN = { "=_", "_.=._", "_.===_", "_=.==_", "_.=.=._", "_..===._", "_..===..=_",
-			"_..=..==._", "_.=..=...=_", "_..=...=..=._" };
+	BidirectionalMap<Character, String> CHARACTER_CODING = new BidirectionalMap<>(Stream.of(
+			new Object[][] {
+				{ 'a', "-" }, { 'b', "-=" },
+				{ 'c', "-==" }, { 'd', "--==" },
+				{ 'e', "--===" }, { 'f', "---===" },
+				{ 'g', "---====" }, { 'h', "----====" },
+				{ 'i', "----=====" }, { 'j', "_" },
+				{ 'k', "_-" }, { 'l', "_-=" },
+				{ 'm', "_-==" }, { 'n', "_--==" },
+				{ 'ñ', "_--===" }, { 'o', "_---===" },
+				{ 'p', "_---====" }, { 'q', "_----====" },
+				{ 'r', "_----=====" }, { 's', "__" },
+				{ 't', "__-" }, { 'u', "__-=" },
+				{ 'v', "__-==" }, { 'w', "__--==" },
+				{ 'x', "__--===" }, { 'y', "__---===" },
+				{ 'z', "__---====" }, { ' ', "__----====" },
+				{ ':', "__----=====" }
+			}
+			).collect(Collectors.toMap(c -> (char) c[0], i -> (String) i[1])));
 	
-	public String getCharacter(short position);
+	BidirectionalMap<Integer, String> NUMBER_CODING = new BidirectionalMap<>(Stream.of(
+			new Object[][] {
+				{1, "="},
+				{2, ".=."},
+				{3, ".==="},
+				{4, "=.=="},
+				{5, ".=.=."},
+				{6, "..===."},
+				{7, "..===..="},
+				{8, "..=..==."},
+				{9, ".=..=...="},
+				{0, "..=...=..=."}
+			}
+			).collect(Collectors.toMap(i -> (int) i[0], c -> (String) c[1])));
 	
-	public String getCharacterN(short position);
 	
-	public String getCharacterDecoded(short position);
+	public String getSimpleCharEncoded(char ch);
 	
-	public String getCharacterNDecoded(short position);
+	public String getSimpleNumberEncoded(int number);
 	
-	public String getLetter(short position);
+	public char getSimpleCharDecoded(String code);
 	
-	public String getNumber(short position);
+	public int getSimpleNumberDecoded(String code);
 	
-	public short getNumbersLength();
+	public boolean containsChar(char ch);
 	
-	public short getLettersLength();
+	public boolean containsNumber(int number);
 	
-	public short getCodeLength();
+	public boolean containsCharCode(String code);
 	
-	public short getCodeNLength();
+	public boolean containsNumberCode(String code);
 	
-	public short getDecodeLength();
+	public String getSimpleEncoded(char ch);
 	
-	public short getDecodeNLength();
+	public String getSimpleDecoded(String code);
+	
 }

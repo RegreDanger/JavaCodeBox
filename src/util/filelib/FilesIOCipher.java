@@ -44,7 +44,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 		}
 		write(dir, out -> {
 			for (String line : lines) {
-				out.println(Base64.getEncoder().encodeToString(Coder.getEncode(line).getBytes()));
+				out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(line).getBytes()));
 			}
 		});
 		setFileRenameExtension(dir, dirRenameEncoded);
@@ -82,7 +82,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 		String[] linesRead = read(dir);
 		ArrayList<String> decoded = new ArrayList<String>();
 		for (String line : linesRead) {
-			decoded.add(Coder.getDecoded(new String(Base64.getDecoder().decode(line))));
+			decoded.add(Coder.getInstance().getDecoded(new String(Base64.getDecoder().decode(line))));
 		}
 		setHiddenFile(origin.toPath(), true);
 		return decoded.toArray(new String[0]);
@@ -100,7 +100,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 	public static void setSaveEncoded(final String[] lines, final String dir) {
 		write(dir, out -> {
 			for (String line : lines) {
-				out.println(Base64.getEncoder().encodeToString(Coder.getEncode(line).getBytes()));
+				out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(line).getBytes()));
 			}
 		});
 		
@@ -119,7 +119,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 		String[] linesRead = read(dir);
 		ArrayList<String> decoded = new ArrayList<String>();
 		for (String line : linesRead) {
-			decoded.add(Coder.getDecoded(new String(Base64.getDecoder().decode(line))));
+			decoded.add(Coder.getInstance().getDecoded(new String(Base64.getDecoder().decode(line))));
 		}
 		return decoded.toArray(new String[0]);
 	}
@@ -137,10 +137,10 @@ public class FilesIOCipher extends FileIOEnhanced {
 		final String[] linesSaved = getLoadEncoded(dir);
 		write(dir, out -> {
 			for (String savedLine : linesSaved) {
-				out.println(Base64.getEncoder().encodeToString(Coder.getEncode(savedLine).getBytes()));
+				out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(savedLine).getBytes()));
 			}
 			for (String line : lines) {
-				out.println(Base64.getEncoder().encodeToString(Coder.getEncode(line).getBytes()));
+				out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(line).getBytes()));
 			}
 		});
 	}
@@ -159,7 +159,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 		final short finalLine = line <= 0 ? 0 : line--;
 		write(dir, out -> {
 			for (short currentLine = 0; currentLine < finalLine; currentLine++) {
-				out.println(Base64.getEncoder().encodeToString(Coder.getEncode(linesSaved[currentLine]).getBytes()));
+				out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(linesSaved[currentLine]).getBytes()));
 			}
 		});
 	}
@@ -178,7 +178,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 		final short startLine = (short) (line > linesSaved.length + 1 ? linesSaved.length-1 : line--);
 		write(dir, out -> {
 			for (short printLine = startLine; printLine < linesSaved.length; printLine++) {
-				out.println(Base64.getEncoder().encodeToString(Coder.getEncode(linesSaved[printLine]).getBytes()));
+				out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(linesSaved[printLine]).getBytes()));
 			}
 		});
 	}
@@ -200,7 +200,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 		write(dir, out -> {
 			for(short currentLine = 0; currentLine < linesSaved.length; currentLine++) {
 			if(!(currentLine > lineInitial && currentLine < lineEnd)) {
-				out.println(Base64.getEncoder().encodeToString(Coder.getEncode(linesSaved[currentLine]).getBytes()));
+				out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(linesSaved[currentLine]).getBytes()));
 			}
 		}
 		});
@@ -221,7 +221,7 @@ public class FilesIOCipher extends FileIOEnhanced {
 		write(dir, out -> {
 			for (short currentLine = 0; currentLine < linesSaved.length; currentLine++) {
 				if (currentLine != deleteLine) {
-					out.println(Base64.getEncoder().encodeToString(Coder.getEncode(linesSaved[currentLine]).getBytes()));
+					out.println(Base64.getEncoder().encodeToString(Coder.getInstance().getEncoded(linesSaved[currentLine]).getBytes()));
 				}
 			}
 		});

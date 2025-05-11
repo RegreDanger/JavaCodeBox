@@ -35,7 +35,7 @@ public class Encrypt {
 	public final static String getEncryptSHA256(String str) {
 		try {
 			digest = MessageDigest.getInstance("SHA-256");
-			str = Coder.getEncode(str);
+			str = Coder.getInstance().getEncoded(str);
 			byte[] encodeHash = digest.digest(str.getBytes(StandardCharsets.UTF_8));
 			StringBuilder hexString = new StringBuilder(2 * encodeHash.length);
 			for (short i = 0; i < encodeHash.length; i++) {
