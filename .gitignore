@@ -2,6 +2,7 @@
 .project
 .settings/
 /bin/
+/target/
 .*class
 .DS_Store
 Thumbs.db
